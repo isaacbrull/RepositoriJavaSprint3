@@ -23,6 +23,7 @@ public class Main {
      * Método con todas las sentencias necesarias para ejecutar el programa
      */
     public void inicio() {
+        int hola;
         int opcion; // Permite introducir opciones del menú
         int posicion; // Indica en que posición se encuentra un determinado objeto de la clase Profesor
         boolean status; // Indica TRUE si encuentra alumnos/profesores al realizar una búsqueda
