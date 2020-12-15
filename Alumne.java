@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package paquet1;
+package RepositoriJavaSprint3.RepositoriJavaSprint3.RepositoriJavaSprint3;
 
 public class Alumne extends Persona {
 

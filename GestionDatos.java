@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package paquet1;
+package RepositoriJavaSprint3.RepositoriJavaSprint3.RepositoriJavaSprint3;
 import java.util.Scanner;
 
 public class GestionDatos {
