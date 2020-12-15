@@ -32,7 +32,7 @@ public class Main {
         do {
             // Menú principal
             IO.imprimir((Object[]) UI.getMenuPrincipal());
-            opcion = IO.entradaNumero("Tria una opció");
+            opcion = IO.entradaNumero("Elige una opción");
 
             switch (opcion) {
                 case 1:
