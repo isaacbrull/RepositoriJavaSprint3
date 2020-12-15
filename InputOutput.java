@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-int titola;
+
 /**
  * Biblioteca de métodos de Entrada y Salida
  *
