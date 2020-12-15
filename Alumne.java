@@ -8,8 +8,8 @@ package RepositoriJavaSprint3.RepositoriJavaSprint3.RepositoriJavaSprint3;
 public class Alumne extends Persona {
 
         private Integer matricula;
-	
-	
+
+	int test;
 	/**
 	 * Els getters i els setters
 	 * 
