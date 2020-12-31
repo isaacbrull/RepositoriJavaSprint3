@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Menu extends JFrame {
     private final String[] MENUPRINCIPAL =
@@ -37,14 +38,29 @@ public class Menu extends JFrame {
 
     public void MenuPrincipal(){
 
-Color bg = new Color(255, 187, 156);
+
+        Color bg = new Color(255, 187, 156);
        JPanel tPanel = crearPanel(bg,0,30,600,280);//Panel titol
         JPanel bPanel = crearPanel(bg,0,320,600,160); //Panel botons
         bPanel.setLayout(null);
-        Font titolF = new Font("rsc/Title.ttf",Font.BOLD,20); //Objecte font per a importar
+
         /*Un label es un element per a mostrar text, imatges o els dos*/
  JLabel titol = new JLabel(); //Crear una nova label amb instruccions per al programa
-        titol.setFont(titolF); //Setejem la font
+        //Objecte font per a importar
+        try {
+            /*Per a carregar la font custom tindrem que fer una classe que crearla com a un derivat de font
+            usant la classe GraphicsEnvironment que conte los objectes de font disponibles per a java
+            sino no la reconeix*/
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            Font f = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("rsc/Title.ttf"));
+            if (!ge.registerFont(f)) {
+                System.out.println("Unable to register font");
+            }
+            f = f.deriveFont(Font.BOLD, 24);
+            titol. setFont(f); //Setejem la font
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
  titol.setText("Benvingut, tria que vols gestionar!"); //Setejar text titol
  titol.setHorizontalTextPosition(JLabel.CENTER);//Setejar posicio del text seguit de posicio del label
  titol.setVerticalTextPosition(JLabel.TOP);
