@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package RepositoriJavaSprint3.RepositoriJavaSprint3.RepositoriJavaSprint3;
+
 import java.util.Scanner;
 
 public class GestionDatos {
@@ -115,7 +115,7 @@ public class GestionDatos {
         } else {
             // Confirmación
             IO.imprimirTexto("Está seguro de guardar los cambios? ");
-            IO.imprimir((Object[]) UI.getMenuConfirmacion());
+          //  IO.imprimir((Object[]) UI.getMenuConfirmacion());
             opcion = IO.insertarInt();
 
             if (opcion != 2) {
@@ -241,7 +241,7 @@ public class GestionDatos {
 
             // Confirmación
             IO.imprimirTexto("Está seguro de guardar los cambios? ");
-            IO.imprimir((Object[]) UI.getMenuConfirmacion());
+            //IO.imprimir((Object[]) UI.getMenuConfirmacion());
             opcion = IO.insertarInt();
 
             if (opcion != 2) {
@@ -268,7 +268,7 @@ public class GestionDatos {
         // Si no hay coincidencias no se muestra el menú de confirmación
         if (posicion != -1) {
             IO.imprimirTexto("Está seguro de realizar esta operación?");
-            IO.imprimir((Object[])UI.getMenuConfirmacion());
+           // IO.imprimir((Object[])UI.getMenuConfirmacion());
             opcion = IO.insertarInt();
 
             if (opcion != 2) {

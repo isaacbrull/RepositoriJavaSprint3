@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RepositoriJavaSprint3.RepositoriJavaSprint3.RepositoriJavaSprint3;
+import javax.swing.*;
+import java.awt.*;
 
 public class Main {
-    private final InputOutput IO = new InputOutput();
-    private final GestionDatos DB = new GestionDatos();
-    private final Menu UI = new Menu();
+  //  private final InputOutput IO = new InputOutput();
+   // private final GestionDatos DB = new GestionDatos();
 
     /**
      * Método que inicia el programa
@@ -16,13 +16,17 @@ public class Main {
      */
     public static void main(String[] args) {
         Main programa = new Main();
-        programa.inicio();
+        //programa.inicio();
+        Menu menu = new Menu();
+        menu.MenuPrincipal();
+
+
     }
 
     /**
      * Método con todas las sentencias necesarias para ejecutar el programa
      */
-    public void inicio() {
+    /*public void inicio() {
         int opcion; // Permite introducir opciones del menú
         int posicion; // Indica en que posición se encuentra un determinado objeto de la clase Profesor
         boolean status; // Indica TRUE si encuentra alumnos/profesores al realizar una búsqueda
@@ -438,5 +442,5 @@ public class Main {
             }
         }
         while (opcion != UI.getMenuPrincipal().length); // Salir
-    }
+    }*/
 }

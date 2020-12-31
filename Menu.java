@@ -3,18 +3,93 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RepositoriJavaSprint3.RepositoriJavaSprint3.RepositoriJavaSprint3;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Menu {
+public class Menu extends JFrame implements ActionListener {
     private final String[] MENUPRINCIPAL =
             {
-                    "Gestionar profesores",
-                    "Gestionar alumnos",
-                    "Gestionar grupos",
-                    "Gestionar propuestas",
-                    "Gestionar matriculas",
-                    "Salir"
+                    "Gestionar Professors",
+                    "Gestionar Alumnes",
+                    "Gestionar Grups",
+                    "Gestionar Propostes",
+                    "Gestionar Matricules",
+                    "placeholder"
             };
+    Menu (){
+        final int width = 600;
+        final int heigth = 500;
+        this.setTitle("Programa G2 S3");//Set text nom del programa
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//comportament al tancar el programa
+        this.setVisible(true);//mostrar la finestra true
+        this.setSize(width,heigth); //Set tamany
+        this.setResizable(true); //Set su es pot reescalar el tamany
+        this.getContentPane().setBackground(new Color(255, 187, 156)); //Set color background
+        ImageIcon icono = new ImageIcon("rsc/ico.png");//Crear objecte icona para el programa
+        this.setIconImage(icono.getImage());//Setejar la icona del programa
+       // this.setLayout(null);
+
+
+    }
+
+    public void MenuPrincipal(){
+
+Color bg = new Color(255, 187, 156);
+       JPanel tPanel = crearPanel(bg,0,-40,600,340);//Panel titol
+        JPanel bPanel = crearPanel(Color.red,0,320,600,160); //Panel botons
+        Font titolF = new Font("rsc/Title.ttf",Font.BOLD,20); //Objecte font per a importar
+        /*Un label es un element per a mostrar text, imatges o els dos*/
+ JLabel titol = new JLabel(); //Crear una nova label amb instruccions per al programa
+        titol.setFont(titolF); //Setejem la font
+ titol.setText("Benvingut, tria que vols gestionar!"); //Setejar text titol
+ titol.setHorizontalTextPosition(JLabel.CENTER);//Setejar posicio del text seguit de posicio del label
+ titol.setVerticalTextPosition(JLabel.TOP);
+ titol.setHorizontalAlignment(JLabel.CENTER);
+ titol.setVerticalAlignment(JLabel.CENTER);
+ titol.setBounds(100,0,360,400);
+ ImageIcon logo = new ImageIcon("rsc/logo.png");
+ titol.setIcon(logo);
+ tPanel.add(titol);
+ // Secció botons - Un Jbutton es un botó que executa una acció quan es clicat
+    int botoBounds [] = {0,120,0};
+    JButton botons[] = new JButton[4];
+    for (int i = 0,posx = 0;i<botons.length;i++){
+        botons[i] = new JButton();
+
+        //botons[i].setBounds((botoBounds [1]*posx),botoBounds [0],botoBounds [1],botoBounds [2]);
+        botons[i].setSize(30,70);
+        botons[i].setText(MENUPRINCIPAL[i]);
+        if (botoBounds [1]*posx ==360) {
+            posx=0;
+            botoBounds [1]=50;
+        }
+        else posx++;
+        bPanel.add(botons[i]);
+    }
+        this.add (bPanel);
+        this.add(tPanel);//Afegim el panel a la finestra
+  this.getContentPane().repaint();
+  validate();
+    }
+
+    public JPanel crearPanel(Color bgColor, int x, int y, int width, int height){
+        /*Un panel es un espai on inserir elements per a limitar l'espai que ocupen en un frame*/
+        JPanel Panel = new JPanel();
+        //Bounds i coloro de fons del panel
+        Panel.setBounds(x,y,width,height);
+        Panel.setBackground(bgColor);
+        return Panel;
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+/*
+
 
     private final String[] MENUGESTIONPROFESORES =
             {
@@ -168,6 +243,6 @@ public class Menu {
     public String[] getMenuMatriculaDesmatricula() {
         return MENUMATRICULADESMATRICULA;
     }
-    
+  */
 }
 
