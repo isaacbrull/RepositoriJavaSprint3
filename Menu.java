@@ -53,9 +53,6 @@ public class Menu extends JFrame {
             sino no la reconeix*/
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             Font f = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("rsc/Title.ttf"));
-            if (!ge.registerFont(f)) {
-                System.out.println("Unable to register font");
-            }
             f = f.deriveFont(Font.BOLD, 24);
             titol. setFont(f); //Setejem la font
         } catch (IOException | FontFormatException e) {
