@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Menu extends JFrame implements ActionListener {
+public class Menu extends JFrame {
     private final String[] MENUPRINCIPAL =
             {
                     "Gestionar Professors",
@@ -16,7 +16,7 @@ public class Menu extends JFrame implements ActionListener {
                     "Gestionar Grups",
                     "Gestionar Propostes",
                     "Gestionar Matricules",
-                    "placeholder"
+                    "Sortir"
             };
     Menu (){
         final int width = 600;
@@ -25,11 +25,12 @@ public class Menu extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//comportament al tancar el programa
         this.setVisible(true);//mostrar la finestra true
         this.setSize(width,heigth); //Set tamany
-        this.setResizable(true); //Set su es pot reescalar el tamany
+        this.setResizable(false); //Set su es pot reescalar el tamany
         this.getContentPane().setBackground(new Color(255, 187, 156)); //Set color background
         ImageIcon icono = new ImageIcon("rsc/ico.png");//Crear objecte icona para el programa
         this.setIconImage(icono.getImage());//Setejar la icona del programa
-       // this.setLayout(null);
+        this.setLayout(null);
+       this.setLocationRelativeTo(null);
 
 
     }
@@ -37,8 +38,9 @@ public class Menu extends JFrame implements ActionListener {
     public void MenuPrincipal(){
 
 Color bg = new Color(255, 187, 156);
-       JPanel tPanel = crearPanel(bg,0,-40,600,340);//Panel titol
-        JPanel bPanel = crearPanel(Color.red,0,320,600,160); //Panel botons
+       JPanel tPanel = crearPanel(bg,0,30,600,280);//Panel titol
+        JPanel bPanel = crearPanel(bg,0,320,600,160); //Panel botons
+        bPanel.setLayout(null);
         Font titolF = new Font("rsc/Title.ttf",Font.BOLD,20); //Objecte font per a importar
         /*Un label es un element per a mostrar text, imatges o els dos*/
  JLabel titol = new JLabel(); //Crear una nova label amb instruccions per al programa
@@ -53,27 +55,39 @@ Color bg = new Color(255, 187, 156);
  titol.setIcon(logo);
  tPanel.add(titol);
  // Secció botons - Un Jbutton es un botó que executa una acció quan es clicat
-    int botoBounds [] = {0,120,0};
-    JButton botons[] = new JButton[4];
-    for (int i = 0,posx = 0;i<botons.length;i++){
+    JButton botons[] = new JButton[6];//aray de botons
+        int[] botoBounds = {1,10,200,40}; //array que determina la x, la y, la width i la height en aquest ordre
+    for (int i = 0,posx = 0;i<botons.length;i++){//Bucle en el que assignarem la posicio, text i tamany dels botons
         botons[i] = new JButton();
-
-        //botons[i].setBounds((botoBounds [1]*posx),botoBounds [0],botoBounds [1],botoBounds [2]);
-        botons[i].setSize(30,70);
-        botons[i].setText(MENUPRINCIPAL[i]);
-        if (botoBounds [1]*posx ==360) {
-            posx=0;
-            botoBounds [1]=50;
+        //Si la posicio del ultim botó (determinada per la var posx) es major al tamany de la finestra
+        //pasarem el proxim botó abaix
+        if (((botoBounds [2]*posx)+botoBounds [0])>600) {
+            if (i== botons.length-1)posx =1;
+            else posx =0;
+            botoBounds [1] = botoBounds [1] +botoBounds [3];
         }
-        else posx++;
-        bPanel.add(botons[i]);
+        //Li assignem la seva posició i tamany a partir de la array mencionada
+        botons[i].setBounds((botoBounds [2]*posx)+botoBounds [0],botoBounds [1],botoBounds [2],botoBounds [3]);
+        botons[i].setText(MENUPRINCIPAL[i]);//Li assignem el text de la String array MENUPRINCIPAL
+        bPanel.add(botons[i]);//Finalment afegim al panel el boto
+        posx++;//i iterem la var posx per a menejar cap a la dreta la posicio deel proxim boto
     }
+
+/* Aqui podem afegir les accions de cada botó */
+//Ens podem ahorrar implementar un Action listener a la classe i  un metode usant una expressio lambda com a substitut
+        botons[0].addActionListener(e ->System.out.println(MENUPRINCIPAL[0]));
+        botons[1].addActionListener(e ->System.out.println(MENUPRINCIPAL[1]));
+        botons[2].addActionListener(e ->System.out.println(MENUPRINCIPAL[2]));
+        botons[3].addActionListener(e ->System.out.println(MENUPRINCIPAL[3]));
+        botons[4].addActionListener(e ->System.out.println(MENUPRINCIPAL[4]));
+        botons[5].addActionListener(e ->System.exit(0));
+//---------------------------------------------------------------------
+
         this.add (bPanel);
         this.add(tPanel);//Afegim el panel a la finestra
-  this.getContentPane().repaint();
-  validate();
+        this.getContentPane().repaint();
+        validate();
     }
-
     public JPanel crearPanel(Color bgColor, int x, int y, int width, int height){
         /*Un panel es un espai on inserir elements per a limitar l'espai que ocupen en un frame*/
         JPanel Panel = new JPanel();
@@ -84,10 +98,6 @@ Color bg = new Color(255, 187, 156);
     }
 
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
 /*
 
 
