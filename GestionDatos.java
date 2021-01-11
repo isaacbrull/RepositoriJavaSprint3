@@ -5,6 +5,8 @@
  */
 
 
+import java.awt.*;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class GestionDatos {
@@ -37,7 +39,7 @@ public class GestionDatos {
 
 
     // Constructor vacío con arrays inicializados para datos de muestra
-    public GestionDatos() {
+    public GestionDatos() throws IOException, FontFormatException {
         // Inicializamos array con 2 objetos de tipo Profesor
         listaProfesores[0] = this.nuevoProfesor("Carles", "Poma", "Martínez", "INS Eduardo Blanco Amor","dakdla");
         listaProfesores[1] = this.nuevoProfesor("Marc", "Galicia", "Quinquilla", "INS Montsià","uauau");

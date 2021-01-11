@@ -5,6 +5,7 @@
  */
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Main {
   //  private final InputOutput IO = new InputOutput();
@@ -12,20 +13,13 @@ public class Main {
 
     /**
      * Método que inicia el programa
-     * @param args
      */
-    public static void main(String[] args) {
-        Main programa = new Main();
-        //programa.inicio();
+    public static void main(String[] args) throws IOException, FontFormatException {
         Menu menu = new Menu();
         menu.MenuPrincipal();
-
-
     }
 
-    /**
-     * Método con todas las sentencias necesarias para ejecutar el programa
-     */
+
     /*public void inicio() {
         int opcion; // Permite introducir opciones del menú
         int posicion; // Indica en que posición se encuentra un determinado objeto de la clase Profesor
