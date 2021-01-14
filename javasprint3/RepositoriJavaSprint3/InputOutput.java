@@ -1,4 +1,4 @@
-package javasprint3.RepositoriJavaSprint3;
+package javasprint3.RepositoriJavaSprint3.javasprint3.RepositoriJavaSprint3;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

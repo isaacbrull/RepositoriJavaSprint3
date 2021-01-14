@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javasprint3.RepositoriJavaSprint3;
+package javasprint3.RepositoriJavaSprint3.javasprint3.RepositoriJavaSprint3;
 
 /**
  *
