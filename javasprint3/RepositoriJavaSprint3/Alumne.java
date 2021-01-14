@@ -16,7 +16,6 @@ public class Alumne extends Persona {
 	 * 
 	 */
 
-	
 	public String toString(boolean MostrarID, boolean format) {
 		
 		if (format) {
@@ -26,11 +25,12 @@ public class Alumne extends Persona {
 					", Segon Cognom" + this.getSegonCognom() +
 					", Institut: " + this.getInstitut();
 		} else {
-			return (MostrarID ? "ID: " + this.getId() : "") + 
+			return (MostrarID ? " - ID: " + this.getId() : "") +
 					" - Nom: " + this.getNom() + 
 					"\n - Primer Cognom: " + this.getPrimerCognom() + 
 					"\n - Segon Cognom: " + this.getSegonCognom() +
-					"\n - Institut: " + this.getInstitut();
+					"\n - Institut: " + this.getInstitut()
+					+"\n:-------------------------------------------------------:\n";
 		}
 	}
 	

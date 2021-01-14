@@ -44,7 +44,7 @@ public class GestorDades {
         alumnes.add(nouAlumne("Vlad", "Udod", "","INS Montsià"));
         alumnes.add(nouAlumne("Marc", "España", "Quinquilla","INS Montsià"));
         System.out.println(professors.get(0).toString(true,false));
-        
+
     }
 
     // PROFESOR
@@ -71,7 +71,7 @@ public class GestorDades {
         comptadorGrups++; // Se incrementa cada vez que se crea un objeto de tipo profesor
         return new Grup(grup,  tutor, id);
     }
-    
+
      public ArrayList <Grup> getGrups(){
         return grups;
     }
@@ -529,7 +529,7 @@ public class GestorDades {
     	}
 
     	return -1;
-       
+
     }
 
     // Métode per llistar tots els grups
@@ -545,7 +545,7 @@ public class GestorDades {
         }
     }
 
-    
+
     public Grup getGrup(Integer id) {
         for (int i = 0; i < this.comptadorGrups; i++) {
         	if (llistatGrups[i] != null) {
@@ -556,7 +556,7 @@ public class GestorDades {
         }
         return null;
     }
-    
+
     // Método per consultar un grup
 
     public boolean consultarGrup(String nom) {
@@ -578,7 +578,7 @@ public class GestorDades {
 
         String nom = null;
         Integer opcio;
-        
+
         Grup grup = getGrup(id);
 
         if (grup != null) {
@@ -628,9 +628,9 @@ public class GestorDades {
 
         if (posicio != null) {
             IO.imprimir("Datos del grupo");
-            
+
             IO.imprimir(llistatGrups[posicio].toString());
-            
+
             llistatGrups[posicio] = null;
 
             IO.imprimir("Se ha eliminado el grupo");
@@ -642,25 +642,25 @@ public class GestorDades {
     }
 
     public void afegirAlumneGrup(Alumne alumne, Grup grup) {
-    	
+
     	boolean resultat = grup.setAlumneGrup(alumne);
-    	
+
     	if (!resultat) {
     		System.out.println("No queda plaçes per a mes alumnes en aquest grup");
     	}
 
     }
-    
+
     public void afegirProfessorGrup(Profesor professor, Grup grup) {
-    	
+
     	boolean resultat = grup.setProfessorGrup(professor);
-    	
+
     	if (!resultat) {
     		System.out.println("No queda plaçes per a mes professors en aquest grup");
     	}
 
     }
-    
+
     public void eliminarProfessorGrup(String numColegiado, Grup grup) {
 
         boolean resultat = grup.eliminarProfessorGrup(numColegiado);
@@ -670,7 +670,7 @@ public class GestorDades {
         }
 
     }
-    
+
     public void eliminarAlumneGrup(Integer id, Grup grup) {
 
         boolean resultat = grup.eliminarAlumneGrup(id);
@@ -712,7 +712,7 @@ public class GestorDades {
         return null;
 
     }
-    
+
     //this.contador... THIS fa referencia a l'objecte
     public void afegirProposta() {
         String nomA, descripcio;
@@ -736,7 +736,7 @@ public class GestorDades {
             }
         }
     }
-    
+
 
     // Mètode que permet modificar una Propuesta
 
@@ -841,7 +841,7 @@ public class GestorDades {
         IO.imprimirTexto("Presiona ENTER para continuar...");
         teclado.nextLine();
     }
-    
+
     public void baixaPropuestas(Integer id){
 
         Integer posicio = null;

@@ -22,7 +22,8 @@ public class Menu extends JFrame {
     Font f = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("rsc/Title.ttf"));
     //Array de botons
     JButton[] botons;
-
+    String [] nouProfessor = new String[4];
+    String [] Alumne = new String[4];
 
     private final String[] MENUPRINCIPAL = {"Gestionar Professors","Gestionar Alumnes","Gestionar Grups",
                     "Gestionar Propostes","Gestionar Matricules", "Sortir"};
@@ -90,12 +91,16 @@ public class Menu extends JFrame {
              crearMenu("Gestionar Professors",ico,MENUGESTIONARPROFESSORS);//Titol,logo,Text dels botons
             //Secció de botons
                 //Boto llistar Professors
-                    botons[0].addActionListener(a -> {llistarForm("Llistat de Professors");});
+                    botons[0].addActionListener(a -> {llistarForm("Llistat de Professors",true);});
                 //Boto Crear Professors
                     botons[1].addActionListener(a -> {
                         //JTextfield = Un element de GUI que es una caixa de text on podem setejar, afegir o agafar text.
-                        crearForm("Donar d'alta Professor",new String[] {"Nom: ","Primer Cognom: ", "Segon Cognom: ",
+                     crearFormProfessors("Donar d'alta Professor",new String[]
+                                {"Nom: ","Primer Cognom: ", "Segon Cognom: ",
                         "Institut: ", "Nombre Colegiat"},new String[]{"Donar d'Alta", "Tornar"});
+                       botons[0].addActionListener(evnt->{
+                       //    gestor.setProfessors(nouProfe[0],nouProfe[1],nouProfe[2],nouProfe[3],nouProfe[4]);
+                       });
                     });
             //Assignem l'accio de llimpiar la pantalla i reimprimir el menu principal al ultim botó, el de "Sortir"
             botons[botons.length-1].addActionListener(a -> {
@@ -109,6 +114,12 @@ public class Menu extends JFrame {
             clearFrame();
             ImageIcon ico = new ImageIcon("javasprint3/RepositoriJavaSprint3/rsc/alumne.png");
             crearMenu("Gestionar Alumnes",ico,MENUGESTIONARALUMNES);
+
+            //Llistar alumnes
+            botons[0].addActionListener(a -> {
+                llistarForm("Llistat d'Alumnes", false);
+            });
+            //Sortir al menu principal
             botons[botons.length-1].addActionListener(a -> {
                 clearFrame();
                 MenuPrincipal();
@@ -217,7 +228,7 @@ public class Menu extends JFrame {
         bPanel.removeAll();
     }
 
-    public void crearForm(String Titol, String [] text, String [] botonstxt){
+    public String [] crearFormProfessors(String Titol, String [] text, String [] botonstxt){
         clearFrame();
         titol.setText(Titol);
         //Bounds i coloro de fons del panel
@@ -231,9 +242,11 @@ public class Menu extends JFrame {
         tPanel.add(titol);
         bPanel.setBounds(200,100,200,300);
         bPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        int empty = 0;
         //Afegir textfields + labels
         JLabel [] labels = new JLabel[text.length];
         JTextField [] textField = new JTextField [text.length];
+        String [] inputs = new String[text.length];
         for (int i=0; i<textField.length;i++){
             labels[i] = new JLabel();
             labels[i].setText(text[i]);
@@ -246,13 +259,33 @@ public class Menu extends JFrame {
             botons[i].setText(botonstxt[i]);
             bPanel.add(botons[i]);
         }
+        botons[0].addActionListener(e-> {
+            for (int i = 0; i<textField.length;i++){
+                if (textField[i].getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null,"Tens que emplenar tots els camps!",
+                            "Error!",JOptionPane.PLAIN_MESSAGE);
+                    empty = 1;
+                    break;
+                }
+                else{
+                    inputs[i] = textField[i].getText();
+                }
+            }
+            if (!empty[0]){
+            JOptionPane.showMessageDialog(null,"S'ha afegit correctament!",
+                    "Nou professor!",JOptionPane.PLAIN_MESSAGE);
+            clearFrame(); resetTBpanels(); MenuPrincipal();}
+
+        });
+        botons[1].addActionListener(e->{ clearFrame(); resetTBpanels(); MenuPrincipal();});
         this.getContentPane().repaint();
         validate();
         tPanel.setVisible(true);
         bPanel.setVisible(true);
+    return inputs;
     }
-
-    public void llistarForm(String Titol){
+ //True per a fer un llistat de professors, fals  per a fer un llistar d'alumnes
+    public void llistarForm(String Titol, boolean Profes){
         clearFrame();
         titol.setText(Titol);
         titol.setHorizontalTextPosition(JLabel.CENTER);//Setejar posicio del text seguit de posicio del label
@@ -269,9 +302,17 @@ public class Menu extends JFrame {
         JScrollPane scroll = new JScrollPane(llista);//Afegim barra de scroll
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         StringBuilder print = new StringBuilder();
-        ArrayList <Profesor> profes = gestor.getProfessors();
+        if (Profes){
+            ArrayList <Profesor> profes = gestor.getProfessors();
         for (Profesor profe : profes) {
             print.append(profe.toString(true, false));
+        }
+        }
+        else{
+            ArrayList <Alumne> alumnes = gestor.getAlumne();
+            for (Alumne alumne : alumnes) {
+                print.append(alumne.toString(true, false));
+            }
         }
         //Afegim Textarea al mig
         llista.setText(print.toString());
