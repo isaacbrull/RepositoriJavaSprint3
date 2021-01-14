@@ -254,8 +254,8 @@ public class Menu extends JFrame {
         f = f.deriveFont(Font.BOLD, 24);
         titol.setFont(f); //Setejem la font
         tPanel.add(titol);
-        bPanel.setBounds(120,180,360,300);
-        JTextArea llista = new JTextArea(4, 30);
+        bPanel.setBounds(120,160,360,280);
+        JTextArea llista = new JTextArea(10, 30);
         llista.setEditable(false); // set textArea non-editable
         JScrollPane scroll = new JScrollPane(llista);//Afegim barra de scroll
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -266,14 +266,22 @@ public class Menu extends JFrame {
         }
         //Afegim Textarea al mig
         llista.setText(print.toString());
-        bPanel.add(llista);
         bPanel.add(scroll);
-        bPanel.setBorder(new TitledBorder(new EtchedBorder(), "Llistat"));
-
+       llista.setBorder(new TitledBorder(new EtchedBorder(), "Llistat"));
+        //area botons
+    JButton tornar = new JButton();
+        tornar.setText("Tornar");
+        bPanel.add(tornar);
+        tornar.addActionListener(e->{ clearFrame(); resetTBpanels(); MenuPrincipal();});
         this.getContentPane().repaint();
         validate();
         tPanel.setVisible(true);
         bPanel.setVisible(true);
+    }
+
+    public void resetTBpanels (){
+        tPanel.setBounds(0,30,600,280);
+        bPanel.setBounds(50,320,500,160);
     }
 /*
 
