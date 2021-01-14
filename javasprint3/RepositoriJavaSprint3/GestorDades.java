@@ -40,7 +40,7 @@ public class GestorDades {
         alumnes.add(nouAlumne("Pepe","Bernaltes", "Jiménez", "IES Alfacs"));
         alumnes.add(nouAlumne("Vlad", "Udod", "","INS Montsià"));
         alumnes.add(nouAlumne("Marc", "España", "Quinquilla","INS Montsià"));
-        System.out.println(professors.get(0).toString(true,false));
+
     }
 
     // PROFESOR
@@ -63,6 +63,13 @@ public class GestorDades {
     public ArrayList <Profesor> getProfessors(){
         return professors;
     }
+    public void setProfessors(String nom, String primerApellido, String segundoApellido, String instituto, String numColegiado){
+        professors.add(nuevoProfesor(nom, primerApellido, segundoApellido, instituto, numColegiado));
+    }
+    public ArrayList <Alumne> getAlumne(){
+        return alumnes;
+    }
+
 
     // CRUD PROFESOR
 
