@@ -17,11 +17,12 @@ public class GestorDades {
     // Permiten contabilizar los objetos creados de las clases: Alumno, Profesor, Propuesta y Grupo
     private int contadorProfesor;
     private int contadorAlumne;
-    private int comptadorGrups = 0;
+    private int comptadorGrups;
     private int contadorProposta;
 
     // Declaración de arrays i les inicialitzem amb dades per a ahorrar temps a la hora de la presentacio
     ArrayList<Profesor> professors = new ArrayList<Profesor>();
+    ArrayList<Grup> grups = new ArrayList<Grup>();
     ArrayList<Alumne> alumnes = new ArrayList<Alumne>();
     ArrayList<Propostes> propostes = new ArrayList<Propostes>();
     //ArrayList<Grup> grups = new ArrayList<Grup>();
@@ -36,11 +37,14 @@ public class GestorDades {
          professors.add(nuevoProfesor("José", "Lopo", "Rodrigo", "IES Terra Alta","idqajd"));
          professors.add(nuevoProfesor("Vlad", "Udos", "Notengo", "IES Deltebre", "14112"));
          professors.add(nuevoProfesor("Oriol", "Martínez", "Poma", "IES Deltebre","6969"));
+          grups.add(nouGrup("2", professors.get(0),1));
+          grups.add(nouGrup("3", professors.get(1),2));
          alumnes.add(nouAlumne("Carlos", "Masana", "Martínez","INS Montsià"));
         alumnes.add(nouAlumne("Pepe","Bernaltes", "Jiménez", "IES Alfacs"));
         alumnes.add(nouAlumne("Vlad", "Udod", "","INS Montsià"));
         alumnes.add(nouAlumne("Marc", "España", "Quinquilla","INS Montsià"));
         System.out.println(professors.get(0).toString(true,false));
+        
     }
 
     // PROFESOR
@@ -62,6 +66,14 @@ public class GestorDades {
 
     public ArrayList <Profesor> getProfessors(){
         return professors;
+    }
+    public Grup nouGrup(String grup,Profesor tutor,int id) {
+        comptadorGrups++; // Se incrementa cada vez que se crea un objeto de tipo profesor
+        return new Grup(grup,  tutor, id);
+    }
+    
+     public ArrayList <Grup> getGrups(){
+        return grups;
     }
 
     // CRUD PROFESOR

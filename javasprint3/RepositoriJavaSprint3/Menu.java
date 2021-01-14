@@ -120,8 +120,17 @@ public class Menu extends JFrame {
         botons[2].addActionListener(e -> {
             clearFrame();
             ImageIcon ico = new ImageIcon("javasprint3/RepositoriJavaSprint3/rsc/grup.png");
-            crearMenu("Gestionar Grups",ico,MENUGESTIONARGRUPS);
+             crearMenu("Gestionar Grups",ico,MENUGESTIONARGRUPS);//Titol,logo,Text dels botons
+            //Secció de botons
+                //Boto llistar Grups
+                    botons[1].addActionListener(b -> {llistarFormGrups("Llistar grups");});
             botons[botons.length-1].addActionListener(a -> {
+                //clearFrame();//Limpiem la pantalla de elements
+            //ImageIcon ico = new ImageIcon("javasprint3/RepositoriJavaSprint3/rsc/teacher.png");//carreguem la imatge de logo
+            //Invoquem el metode crearMenu i passem per parametre les caracteristiques del nostre menú
+
+            
+                //Boto Crear Professors
                 clearFrame();
                 MenuPrincipal();
             });
@@ -263,6 +272,41 @@ public class Menu extends JFrame {
         ArrayList <Profesor> profes = gestor.getProfessors();
         for (Profesor profe : profes) {
             print.append(profe.toString(true, false));
+        }
+        //Afegim Textarea al mig
+        llista.setText(print.toString());
+        bPanel.add(scroll);
+       llista.setBorder(new TitledBorder(new EtchedBorder(), "Llistat"));
+        //area botons
+    JButton tornar = new JButton();
+        tornar.setText("Tornar");
+        bPanel.add(tornar);
+        tornar.addActionListener(e->{ clearFrame(); resetTBpanels(); MenuPrincipal();});
+        this.getContentPane().repaint();
+        validate();
+        tPanel.setVisible(true);
+        bPanel.setVisible(true);
+    }
+    public void llistarFormGrups(String Titol){
+        clearFrame();
+        titol.setText(Titol);
+        titol.setHorizontalTextPosition(JLabel.CENTER);//Setejar posicio del text seguit de posicio del label
+        titol.setVerticalTextPosition(JLabel.TOP);
+        titol.setHorizontalAlignment(JLabel.CENTER);
+        titol.setVerticalAlignment(JLabel.TOP);
+        titol.setBounds(100,0,360,100);
+        f = f.deriveFont(Font.BOLD, 24);
+        titol.setFont(f); //Setejem la font
+        tPanel.add(titol);
+        bPanel.setBounds(120,160,360,280);
+        JTextArea llista = new JTextArea(10, 30);
+        llista.setEditable(false); // set textArea non-editable
+        JScrollPane scroll = new JScrollPane(llista);//Afegim barra de scroll
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        StringBuilder print = new StringBuilder();
+        ArrayList <Grup> grups = gestor.getGrups();
+        for (Grup grup : grups) {
+            print.append(grup.toString());
         }
         //Afegim Textarea al mig
         llista.setText(print.toString());

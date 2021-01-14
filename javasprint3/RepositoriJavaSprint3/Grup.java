@@ -1,9 +1,6 @@
-/*package javasprint3.RepositoriJavaSprint3;
+package javasprint3.RepositoriJavaSprint3.javasprint3.RepositoriJavaSprint3;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
 
 
 class Grup {
@@ -135,8 +132,9 @@ class Grup {
 	
 	//Metode toString
 	public String toString() {
-		return ("ID: " + this.id + " Grup: " + this.nom + " Coordinat pel tutor: " + this.tutor.getNom());
-	}
+		return ("\n-------------------------"+"\nID: " + this.id + "\nGrup: " + this.nom +"\nCoordinat pel tutor: " + this.tutor.getNom());
+                
+        }
 
 	//Constructor amb tots els atributs
 	public Grup(String nomG, Profesor tutorG, Integer idG) {
@@ -145,4 +143,3 @@ class Grup {
 		this.tutor = tutorG;
 	}
 }
-*/
