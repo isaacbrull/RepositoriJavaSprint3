@@ -51,7 +51,7 @@ public class Menu extends JFrame {
         this.setSize(width,heigth); //Set tamany
         this.setResizable(true); //Set su es pot reescalar el tamany
         this.getContentPane().setBackground(bg); //Set color background
-        ImageIcon icono = new ImageIcon("javasprint3/RepositoriJavaSprint3/javasprint3/RepositoriJavaSprint3/rsc/ico.png");//Crear objecte icona para el programa
+        ImageIcon icono = new ImageIcon("javasprint3/RepositoriJavaSprint3/rsc/ico.png");//Crear objecte icona para el programa
         this.setIconImage(icono.getImage());//Setejar la icona del programa
         this.setLayout(null);
        this.setLocationRelativeTo(this);
@@ -70,7 +70,7 @@ public class Menu extends JFrame {
  titol.setHorizontalAlignment(JLabel.CENTER);
  titol.setVerticalAlignment(JLabel.CENTER);
  titol.setBounds(100,0,360,400);
- ImageIcon logo = new ImageIcon("javasprint3/RepositoriJavaSprint3/javasprint3/RepositoriJavaSprint3/rsc/logo.png");
+ ImageIcon logo = new ImageIcon("javasprint3/RepositoriJavaSprint3/rsc/logo.png");
  titol.setIcon(logo);
  tPanel.add(titol);
  // Secció botons - Un Jbutton es un botó que executa una acció quan es clicat
@@ -85,7 +85,7 @@ public class Menu extends JFrame {
         //Gestionar Professors
         botons[0].addActionListener(e -> {
             clearFrame();//Limpiem la pantalla de elements
-            ImageIcon ico = new ImageIcon("javasprint3/RepositoriJavaSprint3/javasprint3/RepositoriJavaSprint3/rsc/teacher.png");//carreguem la imatge de logo
+            ImageIcon ico = new ImageIcon("javasprint3/RepositoriJavaSprint3/rsc/teacher.png");//carreguem la imatge de logo
             //Invoquem el metode crearMenu i passem per parametre les caracteristiques del nostre menú
 
              crearMenu("Gestionar Professors",ico,MENUGESTIONARPROFESSORS);//Titol,logo,Text dels botons
@@ -112,7 +112,7 @@ public class Menu extends JFrame {
         //Gestionar Alumnes
         botons[1].addActionListener(e -> {
             clearFrame();
-            ImageIcon ico = new ImageIcon("javasprint3/RepositoriJavaSprint3/javasprint3/RepositoriJavaSprint3/rsc/alumne.png");
+            ImageIcon ico = new ImageIcon("javasprint3/RepositoriJavaSprint3/rsc/alumne.png");
             crearMenu("Gestionar Alumnes",ico,MENUGESTIONARALUMNES);
 
             //Llistar alumnes
@@ -130,7 +130,7 @@ public class Menu extends JFrame {
         //Gestionar Grups
         botons[2].addActionListener(e -> {
             clearFrame();
-            ImageIcon ico = new ImageIcon("javasprint3/RepositoriJavaSprint3/javasprint3/RepositoriJavaSprint3/rsc/grup.png");
+            ImageIcon ico = new ImageIcon("javasprint3/RepositoriJavaSprint3/rsc/grup.png");
             crearMenu("Gestionar Grups",ico,MENUGESTIONARGRUPS);
             botons[botons.length-1].addActionListener(a -> {
                 clearFrame();
@@ -141,7 +141,7 @@ public class Menu extends JFrame {
         //Gestionar Propostes
         botons[3].addActionListener(e -> {
             clearFrame();
-            ImageIcon ico = new ImageIcon("javasprint3/RepositoriJavaSprint3/javasprint3/RepositoriJavaSprint3/rsc/proposta.png");
+            ImageIcon ico = new ImageIcon("javasprint3/RepositoriJavaSprint3/rsc/proposta.png");
             crearMenu("Gestionar Propostes",ico,MENUGESTIONARPROPOSTES);
             botons[botons.length-1].addActionListener(a -> {
                 clearFrame();
@@ -152,7 +152,7 @@ public class Menu extends JFrame {
         //Gestionar Matricules
         botons[4].addActionListener(e -> {
             clearFrame();
-            ImageIcon ico = new ImageIcon("javasprint3/RepositoriJavaSprint3/javasprint3/RepositoriJavaSprint3/rsc/matricula.png");
+            ImageIcon ico = new ImageIcon("javasprint3/RepositoriJavaSprint3/rsc/matricula.png");
             crearMenu("Gestionar Matrícules",ico,MENUGESTIOMATRICULES);
             botons[botons.length-1].addActionListener(a -> {
                 clearFrame();
@@ -233,6 +233,7 @@ public class Menu extends JFrame {
         tPanel.add(titol);
         bPanel.setBounds(200,100,200,300);
         bPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        int empty = 0;
         //Afegir textfields + labels
         JLabel [] labels = new JLabel[text.length];
         JTextField [] textField = new JTextField [text.length];
@@ -250,23 +251,20 @@ public class Menu extends JFrame {
             bPanel.add(botons[i]);
         }
         botons[0].addActionListener(e-> {
-            boolean empty = false;
             for (int i = 0; i<textField.length;i++){
-
                 if (textField[i].getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null,"Tens que emplenar tots els camps!",
                             "Error!",JOptionPane.PLAIN_MESSAGE);
-                    empty =true;
+                    empty = 1;
                     break;
                 }
                 else{
                     inputs[i] = textField[i].getText();
                 }
             }
-            if (!empty){
+            if (!empty[0]){
             JOptionPane.showMessageDialog(null,"S'ha afegit correctament!",
                     "Nou professor!",JOptionPane.PLAIN_MESSAGE);
-            gestor.setProfessors(inputs[0],inputs[1],inputs[2],inputs[3],inputs[4]);
             clearFrame(); resetTBpanels(); MenuPrincipal();}
 
         });
