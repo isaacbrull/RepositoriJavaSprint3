@@ -1,8 +1,3 @@
-package javasprint3.RepositoriJavaSprint3.javasprint3.RepositoriJavaSprint3;
-
-
-
-
 class Grup {
 	
 	//Atributs de la classe Grup
@@ -117,22 +112,14 @@ class Grup {
             return false;
         }
         
-        public boolean eliminarAlumneGrup(Integer id) {
-            for (Integer i=0;i<this.MaximProfessorsGrups;i++) {
-                if (this.alumneGrup[i] != null) {
-                    if (this.alumneGrup[i].getId() == id) {
-                        this.alumneGrup[i] = null;
-                        return true;
-                    }
+        public void eliminarAlumneGrup(Integer id) {
 
-                }
-            }
-        return false;
         }
 	
 	//Metode toString
 	public String toString() {
-		return ("\n-------------------------"+"\nID: " + this.id + "\nGrup: " + this.nom +"\nCoordinat pel tutor: " + this.tutor.getNom());
+		return ("\nID: " + this.id + "\nGrup: " + this.nom +"\nCoordinat pel tutor: " + this.tutor.getNom()
+		+"\n:---------------------------------------:\n");
                 
         }
 

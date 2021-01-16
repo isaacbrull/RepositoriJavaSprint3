@@ -1,5 +1,3 @@
-package javasprint3.RepositoriJavaSprint3.javasprint3.RepositoriJavaSprint3;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -59,6 +57,10 @@ public class Persona {
 
     public void setSegonCognom(String segonCognom) {
         this.segonCognom = segonCognom;
+    }
+
+    public String getNomComplet(){
+        return this.nom+" "+this.primerCognom+" "+ this.segonCognom;
     }
 
     public String getInstitut() {

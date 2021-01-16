@@ -1,5 +1,3 @@
-package javasprint3.RepositoriJavaSprint3.javasprint3.RepositoriJavaSprint3;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,8 +7,6 @@ package javasprint3.RepositoriJavaSprint3.javasprint3.RepositoriJavaSprint3;
 public class Alumne extends Persona {
 
         private Integer matricula;
-
-	int test;
 	/**
 	 * Els getters i els setters
 	 * 
@@ -20,9 +16,7 @@ public class Alumne extends Persona {
 		
 		if (format) {
 			return (MostrarID ? "ID: " + this.getId() + ", " : "") + 
-					"Nom: " + this.getNom() + 
-					", Primer Cognom: " + this.getPrimerCognom() + 
-					", Segon Cognom" + this.getSegonCognom() +
+					"Nom: " + this.getNom() + " "+ this.getPrimerCognom() + " "+ this.getSegonCognom() +
 					", Institut: " + this.getInstitut();
 		} else {
 			return (MostrarID ? " - ID: " + this.getId() : "") +
@@ -34,7 +28,7 @@ public class Alumne extends Persona {
 		}
 	}
 	
-	public void updateAlumne(String nom, String primerCognom, String segonCognom, String institut) {
+	public void updateAlumne(int id, String nom, String primerCognom, String segonCognom, String institut) {
 		
 		this.setNom(nom != null ? nom : this.getNom());
 		this.setPrimerCognom((primerCognom != null ? primerCognom : this.getPrimerCognom()));
@@ -51,7 +45,7 @@ public class Alumne extends Persona {
 	 * @param segonCognom El segon cognom del alumne
 	 * @param id El identificador ID del alumne
 	 */
-	public Alumne(String nom, String primerCognom, String segonCognom, String institut, Integer id) {
+	public Alumne(String nom, String primerCognom, String segonCognom, String institut, int id) {
             super(id, nom, primerCognom, segonCognom, institut);
 		this.matricula = matricula;
 	}

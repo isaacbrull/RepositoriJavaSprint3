@@ -1,5 +1,3 @@
-package javasprint3.RepositoriJavaSprint3.javasprint3.RepositoriJavaSprint3;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -43,8 +41,8 @@ public class GestorDades {
         alumnes.add(nouAlumne("Pepe","Bernaltes", "Jiménez", "IES Alfacs"));
         alumnes.add(nouAlumne("Vlad", "Udod", "","INS Montsià"));
         alumnes.add(nouAlumne("Marc", "España", "Quinquilla","INS Montsià"));
-        System.out.println(professors.get(0).toString(true,false));
-
+        alumnes.remove(0);
+        System.out.println(alumnes.get(0).toString(true,true));
     }
 
     // PROFESOR
@@ -59,24 +57,68 @@ public class GestorDades {
      * @param numColegiado    String - nº de identificación de cada profesor
      * @return Profesor - objeto de ese tipo
      */
-    public Profesor nuevoProfesor(String nom, String primerApellido, String segundoApellido, String instituto, String numColegiado) {
+    // CRUD PROFESOR
+    public Profesor nuevoProfesor(String nom, String primerApellido, String segundoApellido, String instituto,
+                                  String numColegiado) {
         contadorProfesor++; // Se incrementa cada vez que se crea un objeto de tipo profesor
         return new Profesor(nom, primerApellido, segundoApellido, instituto, contadorProfesor, numColegiado);
     }
-
     public ArrayList <Profesor> getProfessors(){
         return professors;
     }
+
+    public void setProfessors(String nom, String primerApellido, String segundoApellido, String instituto,
+                              String numColegiat) {
+       professors.add(nuevoProfesor(nom,primerApellido,segundoApellido,instituto,numColegiat));
+    }
+
+    public void removeProfessors(int index){
+        professors.remove(index);
+    }
+
+    public String [] getAllprofessornoms(){
+        String [] nomcomplet= new String[professors.size()];
+        for(int i = 0; i< professors.size(); i++){
+            nomcomplet[i] = professors.get(i).getNomComplet();
+        }
+        return nomcomplet;
+    }
+    //-----------------------------------------------------------------------------------------------------------------
+
+    //CRUD GRUP
     public Grup nouGrup(String grup,Profesor tutor,int id) {
         comptadorGrups++; // Se incrementa cada vez que se crea un objeto de tipo profesor
         return new Grup(grup,  tutor, id);
     }
-
      public ArrayList <Grup> getGrups(){
         return grups;
     }
 
-    // CRUD PROFESOR
+
+//---------------------------------------------------------------------------------------------------------
+//CRUD ALUMNE
+    public ArrayList<Alumne> getAlumne(){return alumnes;}
+
+    public void setAlumne(String nom, String primerApellido, String segundoApellido, String instituto) {
+        alumnes.add(nouAlumne(nom, primerApellido, segundoApellido,instituto));
+    }
+
+    public Alumne nouAlumne(String nombre, String primerApellido, String segundoApellido, String instituto) {
+        contadorAlumne++;
+        return new Alumne(nombre, primerApellido, segundoApellido,instituto, contadorAlumne);
+    }
+    public void removeAlumnes(int index){
+        alumnes.remove(index);
+    }
+
+    public String [] getAllalumnesnoms(){
+        String [] nomcomplet= new String[alumnes.size()];
+        for(int i = 0; i< alumnes.size(); i++){
+            nomcomplet[i] = alumnes.get(i).getNomComplet();
+        }
+        return nomcomplet;
+    }
+//----------------------------------------------------------------------------------------------------------------
 
     /**
      * Método que permite dar de alta un usuario de tipo Profesor (CREATE)
@@ -276,10 +318,7 @@ public class GestorDades {
      * @param instituto 		Institut del alumne
      * @return L'objecte creat
      */
-    public Alumne nouAlumne(String nombre, String primerApellido, String segundoApellido, String instituto) {
-        contadorAlumne++;
-        return new Alumne(nombre, primerApellido, segundoApellido,instituto, contadorAlumne);
-    }
+
 
     /**
      * Metode que retorna l'alumne a partir de la seva ID

@@ -1,0 +1,674 @@
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Menu extends JFrame {
+    Color bg = new Color(255, 187, 156);//Color de fons
+    JPanel tPanel = crearPanel(bg,0,30,600,280);//Panel titol
+    JPanel bPanel = crearPanel(bg,50,320,500,160); //Panel botons
+    /*Un label es un element per a mostrar text, imatges o els dos*/
+    JLabel titol = new JLabel(); //Crear una nova label amb instruccions per al programa
+    //Objecte font per a importar
+
+    Font f = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("rsc/Title.ttf"));
+    //Array de botons
+    JButton[] botons;
+
+    private final String[] MENUPRINCIPAL = {"Gestionar Professors","Gestionar Alumnes","Gestionar Grups",
+                    "Gestionar Propostes","Gestionar Matrícules", "Sortir"};
+
+    private final String[] MENUGESTIONARPROFESSORS = {"Llistar Professors","Creació de Professors",
+            "Modificar","Eliminar Professors", "Tornar"};
+    private final String[] MENUGESTIONARALUMNES = {"Listar Alumnes","Crear Alumnes","Modificar Alumnes",
+            "Eliminar Alumnes","Tornar"};
+
+    private final String[] MENUGESTIONARGRUPS ={"Crear grups","Llistar grups","Consultar grups","Tornar"};
+
+
+    private final String[] MENUGESTIONARPROPOSTES = {"Listar Propostes","Crear  Propostes","Modificar Propostes",
+                    "Eliminar Propostes","Tornar"};
+    private final String[] MENUGESTIOMATRICULES ={"Desmatricular Alumne","Assignar Professor",
+                    "Desassignar Professor","Tornar"};
+    private final String []crearForm = {"Crear", "Tornar"};
+    private final GestorDades gestor = new GestorDades();
+
+    Menu () throws IOException, FontFormatException {
+        final int width = 600;
+        final int heigth = 500;
+        this.setTitle("Programa G2 S3");//Set text nom del programa
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//comportament al tancar el programa
+        this.setSize(width,heigth); //Set tamany
+        this.setResizable(true); //Set su es pot reescalar el tamany
+        this.getContentPane().setBackground(bg); //Set color background
+        ImageIcon icono = new ImageIcon("src/rsc/ico.png");//Crear objecte icona para el programa
+        this.setIconImage(icono.getImage());//Setejar la icona del programa
+        this.setLayout(null);
+       this.setLocationRelativeTo(this);
+        this.setVisible(true);//mostrar la finestra true
+
+    }
+
+    public void MenuPrincipal(){
+        bPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+            /*Per a carregar la font custom tindrem que fer una classe que crearla com a un derivat de font*/
+            f = f.deriveFont(Font.BOLD, 24);
+            titol.setFont(f); //Setejem la font
+ titol.setText("Benvingut tria que vols gestionar!"); //Setejar text titol
+ titol.setHorizontalTextPosition(JLabel.CENTER);//Setejar posicio del text seguit de posicio del label
+ titol.setVerticalTextPosition(JLabel.TOP);
+ titol.setHorizontalAlignment(JLabel.CENTER);
+ titol.setVerticalAlignment(JLabel.CENTER);
+ titol.setBounds(100,0,360,400);
+ ImageIcon logo = new ImageIcon("src/rsc/logo.png");
+ titol.setIcon(logo);
+ tPanel.add(titol);
+ // Secció botons - Un Jbutton es un botó que executa una acció quan es clicat
+    botons = new JButton[MENUPRINCIPAL.length];//aray de botons
+    for (int i = 0;i<botons.length;i++){//Bucle en el que assignarem la posicio, text i tamany dels botons
+        botons[i] = new JButton();
+        botons[i].setText(MENUPRINCIPAL[i]);//Li assignem el text de la String array MENUPRINCIPAL
+        bPanel.add(botons[i]);//Finalment afegim al panel el boto
+
+    }
+/* Aqui podem afegir les accions de cada botó*/
+        //Gestionar Professors
+        botons[0].addActionListener(e -> {
+            clearFrame();//Limpiem la pantalla de elements
+            ImageIcon ico = new ImageIcon("src/rsc/teacher.png");//carreguem la imatge de logo
+            //Invoquem el metode crearMenu i passem per parametre les caracteristiques del nostre menú
+
+             crearMenu("Gestionar Professors",ico,MENUGESTIONARPROFESSORS);//Titol,logo,Text dels botons
+            //Secció de botons
+                //Boto llistar Professors
+                    botons[0].addActionListener(a -> {llistarForm("Llistat de Professors","profes");});
+
+                //Boto Crear Professors
+                    botons[1].addActionListener(a -> {
+                        //JTextfield = Un element de GUI que es una caixa de text on podem setejar, afegir o agafar text.
+                     crearFormProfeAlumnes("Donar d'alta Professor",new String[]
+                                {"Nom: ","Primer Cognom: ", "Segon Cognom: ",
+                        "Institut: ", "Nombre Colegiat"},new String[]{"Donar d'Alta", "Tornar"},true);
+                    });
+                //Boto modificar professors
+            botons[2].addActionListener(a->{
+                modForm("Modificar Professors","profes");
+            });
+                //Boto eliminar Professors
+                    botons[3].addActionListener(a -> {
+                        deleteForm("Eliminar Professors","profes");
+                    });
+            //Assignem l'accio de llimpiar la pantalla i reimprimir el menu principal al ultim botó, el de "Sortir"
+            botons[botons.length-1].addActionListener(a -> {
+                    clearFrame();
+                    MenuPrincipal();
+            });
+
+        });
+        //Gestionar Alumnes
+        botons[1].addActionListener(e -> {
+            clearFrame();
+            ImageIcon ico = new ImageIcon("src/rsc/alumne.png");
+            crearMenu("Gestionar Alumnes",ico,MENUGESTIONARALUMNES);
+
+            //Llistar alumnes
+            botons[0].addActionListener(a -> {
+                llistarForm("Llistat d'Alumnes", "alumnes");
+            });
+            //Crear Alumnes
+                    botons[1].addActionListener(a -> {
+            crearFormProfeAlumnes("Donar d'alta Professor",new String[]
+                    {"Nom: ","Primer Cognom: ", "Segon Cognom: ",
+                            "Institut: "},new String[]{"Donar d'Alta", "Tornar"},false);});
+            //Eliminar Alumnes
+            botons[3].addActionListener(a -> {
+              deleteForm("Eliminar Alumnes","alumnes");});
+            //Sortir al menu principal
+            botons[botons.length-1].addActionListener(a -> {
+                clearFrame();
+                MenuPrincipal();
+            });
+
+        });
+        //---------------------------------------------
+        //Gestionar Grups
+        botons[2].addActionListener(e -> {
+            clearFrame();
+            ImageIcon ico = new ImageIcon("src/rsc/grup.png");
+            crearMenu("Gestionar Grups",ico,MENUGESTIONARGRUPS);
+            //Llistar grups
+            botons[1].addActionListener(a -> {
+                llistarForm("Llistat Grups", "grups");
+            });
+            //Sortir
+            botons[botons.length-1].addActionListener(a -> {
+                clearFrame();
+                MenuPrincipal();
+            });
+
+        });
+        //Gestionar Propostes
+        botons[3].addActionListener(e -> {
+            clearFrame();
+            ImageIcon ico = new ImageIcon("src/rsc/proposta.png");
+            crearMenu("Gestionar Propostes",ico,MENUGESTIONARPROPOSTES);
+            botons[botons.length-1].addActionListener(a -> {
+                clearFrame();
+                MenuPrincipal();
+            });
+
+        });
+        //Gestionar Matricules
+        botons[4].addActionListener(e -> {
+            clearFrame();
+            ImageIcon ico = new ImageIcon("src/rsc/matricula.png");
+            crearMenu("Gestionar Matrícules",ico,MENUGESTIOMATRICULES);
+            botons[botons.length-1].addActionListener(a -> {
+                clearFrame();
+                MenuPrincipal();
+            });
+
+        });
+        //Tancar el programa
+        botons[5].addActionListener(e ->System.exit(0));
+//---------------------------------------------------------------------
+
+        this.add (bPanel);
+        this.add(tPanel);//Afegim el panel a la finestra
+        this.getContentPane().repaint();
+        validate();
+    }
+    /**
+     * Metode per a crear panells de forma senzilla
+     * @param bgColor : Objecte color per a definir color de fons
+     * @param x : pos x
+     * @param y : pos y
+     * @param height: altura en px
+     * @param width : llargaria en px**/
+    public JPanel crearPanel(Color bgColor, int x, int y, int width, int height){
+        /*Un panel es un espai on inserir elements per a limitar l'espai que ocupen en un frame*/
+        JPanel Panel = new JPanel();
+        //Bounds i coloro de fons del panel
+        Panel.setBounds(x,y,width,height);
+        Panel.setBackground(bgColor);
+        return Panel;
+    }
+
+/**Metode per a carregar Menús li posem el titol, imatge, array de text amb el
+ text dels botons i podrem generar un  menu simple
+ @param Titol: String amb el titol de caoçalera del menú
+ @param logo: Objecte ImageIcon que carregara la imatge logo del menú
+ @param Botons : Array String amb el text que contindran els botons, util també per a contar quants botons hi hauran
+                al menú.
+ **/
+    public void crearMenu (String Titol, ImageIcon logo, String [] Botons){
+        JLabel titol = new JLabel();
+        f = f.deriveFont(Font.BOLD, 24);
+        titol. setFont(f);
+        titol.setText(Titol);
+        titol.setIcon(logo);
+        tPanel.add(titol);
+        botons = new JButton[Botons.length];
+        for (int i = 0;i<botons.length;i++){
+            botons[i] = new JButton();
+            botons[i].setText(Botons[i]);
+            bPanel.add(botons[i]);
+        }
+        this.add (bPanel);
+        this.add(tPanel);//Afegim el panel a la finestra
+        this.getContentPane().repaint();
+        validate();
+        tPanel.setVisible(true);
+        bPanel.setVisible(true);
+    }
+
+
+    //Metode per a crear formulari de crear alumne / profesor
+    public void crearFormProfeAlumnes(String Titol, String [] text, String [] botonstxt, boolean profe){
+        clearFrame();
+        //Organitzem el panell del titol
+        titol.setText(Titol);
+        titol.setHorizontalTextPosition(JLabel.CENTER);//Setejar posicio del text seguit de posicio del label
+        titol.setVerticalTextPosition(JLabel.TOP);
+        titol.setHorizontalAlignment(JLabel.CENTER);
+        titol.setVerticalAlignment(JLabel.TOP);
+        titol.setBounds(100,0,360,100);
+        f = f.deriveFont(Font.BOLD, 24);
+        titol.setFont(f); //Setejem la font
+        tPanel.add(titol);
+        //---------------------------------------
+        //Organitzem el cos del formulari
+        bPanel.setBounds(200,100,200,300);
+        bPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        //Afegir textfields + labels
+        JLabel [] labels = new JLabel[text.length];
+        JTextField [] textField = new JTextField [text.length];
+        String [] inputs = new String[text.length];
+        for (int i=0; i<textField.length;i++){
+            labels[i] = new JLabel(text[i]);
+            textField[i] = new JTextField(15);
+            bPanel.add(labels[i]);
+            bPanel.add(textField[i]);
+        }
+        for (int i= 0; i<botonstxt.length; i++){
+            botons[i] = new JButton(botonstxt[i]);
+            bPanel.add(botons[i]);
+        }
+        botons[0].addActionListener(e-> {
+            boolean empty = false;
+            for (int i = 0; i<textField.length;i++){
+                if (textField[i].getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null,"Tens que emplenar tots els camps!",
+                            "Error!",JOptionPane.PLAIN_MESSAGE);
+                    empty = true;
+                    break;
+                }
+                else{
+                    inputs[i] = textField[i].getText();
+                }
+            }
+            if (!empty){
+            JOptionPane.showMessageDialog(null,"S'ha afegit correctament!",
+                    "Nou professor!",JOptionPane.PLAIN_MESSAGE);
+              if (profe)gestor.setProfessors(inputs[0],inputs[1],inputs[2],inputs[3],inputs[4]);
+              else gestor.setAlumne(inputs[0],inputs[1],inputs[2],inputs[3]);
+          tornar();}
+
+        });
+        botons[1].addActionListener(e->{ tornar();}); //boto de tornada
+        this.getContentPane().repaint();
+        validate();
+        tPanel.setVisible(true);
+        bPanel.setVisible(true);
+    }
+
+    /**
+     *
+     * @param Titol = Escriu el titol que tindra la llista, exemple: Llistar alumnes
+     * @param tipusLlista= escriu "profes"/"alumnes" / "grups" / "Matricules" / "Propostes per a llistar lo que desitges
+     */
+    public void llistarForm(String Titol, String tipusLlista){
+        clearFrame();
+        //Organitzem el panell del titol
+        titol.setText(Titol);
+        titol.setHorizontalTextPosition(JLabel.CENTER);//Setejar posicio del text seguit de posicio del label
+        titol.setVerticalTextPosition(JLabel.TOP);
+        titol.setHorizontalAlignment(JLabel.CENTER);
+        titol.setVerticalAlignment(JLabel.TOP);
+        titol.setBounds(100,0,360,100);
+        f = f.deriveFont(Font.BOLD, 24);
+        titol.setFont(f); //Setejem la font
+        tPanel.add(titol);
+        //---------------------------------------
+        //Organitzem el cos del formulari
+        bPanel.setBounds(120,160,360,280);
+        JTextArea llista = new JTextArea(10, 30);
+        llista.setEditable(false); // set textArea non-editable
+        JScrollPane scroll = new JScrollPane(llista);//Afegim barra de scroll
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        StringBuilder print = new StringBuilder();
+        switch (tipusLlista) {
+            case "profes":
+                ArrayList<Profesor> profes = gestor.getProfessors();
+                for (Profesor profe : profes) {
+                    print.append(profe.toString(true, false));
+                }
+                break;
+            case "alumnes":
+                ArrayList<Alumne> alumnes = gestor.getAlumne();
+                for (Alumne alumne : alumnes) {
+                    print.append(alumne.toString(true, false));
+                }
+                break;
+            case "grups":
+                ArrayList<Grup> grups = gestor.getGrups();
+                for (Grup grup : grups) {
+                    print.append(grup.toString());
+                }
+                break;
+            case "matricules":
+
+        }
+        //Afegim Textarea al mig
+        llista.setText(print.toString());
+        bPanel.add(scroll);
+       llista.setBorder(new TitledBorder(new EtchedBorder(), "Llistat"));
+        //area botons
+    JButton tornar = new JButton();
+        tornar.setText("Tornar");
+        bPanel.add(tornar);
+        tornar.addActionListener(e->{ tornar();});
+        this.getContentPane().repaint();
+        validate();
+        tPanel.setVisible(true);
+        bPanel.setVisible(true);
+    }
+
+    public void deleteForm (String Titol, String eliminat){
+        clearFrame();
+        //array de checkboxes
+        JCheckBox[] checkboxes;
+        //Organitzem el panell del titol
+        titol.setText(Titol);
+        titol.setHorizontalTextPosition(JLabel.CENTER);//Setejar posicio del text seguit de posicio del label
+        titol.setVerticalTextPosition(JLabel.TOP);
+        titol.setHorizontalAlignment(JLabel.CENTER);
+        titol.setVerticalAlignment(JLabel.TOP);
+        titol.setBounds(100,0,360,100);
+        f = f.deriveFont(Font.BOLD, 24);
+        titol.setFont(f); //Setejem la font
+        tPanel.add(titol);
+        //----------------------------------------------------------
+        //Organitzem el cos del formulari
+        bPanel.setBounds(0,160,580,280);
+      //  bPanel.setBackground(Color.red);
+        //Creem el panell que contindrà els elements
+       JPanel content = new JPanel();
+        //Amb un gridbag layout tenim les ventatges de un grid + la ventatja de poder modificar el tamany de cada row
+        //y columna de manera independent
+       content.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.anchor = GridBagConstraints.NORTH;//anclem a la part de dalt del panel el grid
+       content.setPreferredSize(new Dimension(500,400));
+       //content.setBackground(Color.blue);
+        //  Afegim un element scroll per a poder navegar per els elements
+        JScrollPane scroll = new JScrollPane(content);//Afegim barra de scroll
+        scroll.setBounds(4,15,570,200);
+        //Afegim que s'afegixigue a mesura que es necessite tant horizontal com verticalment
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        /*Per decoracio ho rodejem tot en un EtcherBorder, es un borde, li assignes el text i hereda el color del color
+        de fons del element on es setejat
+         */
+        scroll.setBorder(new TitledBorder(new EtchedBorder(), "Tria els elements a eliminar"));
+
+        //Area botons
+        JButton tornar = new JButton();
+        tornar.setText("Tornar");
+        bPanel.add(tornar);
+        tornar.setBounds(280,220,100,25);
+        tornar.addActionListener(a->{tornar();});
+
+        JButton eliminar = new JButton();
+        eliminar.setText("Eliminar");
+        bPanel.add(eliminar);
+        eliminar.setBounds(180,220,100,25);
+
+        switch (eliminat) {
+            case "profes":
+                ArrayList<Profesor> profes = gestor.getProfessors();
+                checkboxes = new JCheckBox[profes.size()];
+                int gridy=0;
+                for (int i = 0; i<profes.size();i++) {
+                    c.weightx = 0.5;
+                    c.weighty= 0.2;
+                    c.fill = GridBagConstraints.HORIZONTAL;
+                    c.gridx = 0;
+                    c.gridy = gridy;
+
+                   content.add(new JLabel(profes.get(i).toString(true, true)), c);
+                   checkboxes[i]= new JCheckBox();
+                  // checkboxes[i].setBackground(Color.pink);
+                    c.gridx = 1;
+                    c.weightx = 0.1;
+                   content.add(checkboxes[i],c);
+                   gridy++;
+                }
+                //Setejem la funcionalitat de eliminar
+                eliminar.addActionListener(a->{
+                    for(int i = profes.size() - 1; i>=0;i--){
+                        if (checkboxes[i].isSelected()){
+                            //System.out.println("Selected "+i);
+                                gestor.removeProfessors(i);
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null,"S'han eliminat els professors seleccioants!",
+                            "Modificar",JOptionPane.PLAIN_MESSAGE);
+                        tornar();
+                });
+                break;
+            case "alumnes":
+                ArrayList<Alumne> alumnes = gestor.getAlumne();
+                checkboxes = new JCheckBox[alumnes.size()];
+                gridy =0;
+                for (int i = 0; i<alumnes.size();i++) {
+                    c.weightx = 0.2;
+                    c.weighty= 2;
+                    c.fill = GridBagConstraints.HORIZONTAL;
+                    c.gridx = 0;
+                    c.gridy = gridy;
+                    content.add(new JLabel(alumnes.get(i).toString(true, true)),c);
+                    checkboxes[i]= new JCheckBox();
+                    // checkboxes[i].setBackground(Color.pink);
+                    c.gridx = 1;
+                    c.weightx = 0.1;
+                    content.add(checkboxes[i],c);
+                    gridy++;
+                }
+                //Setejem la funcionalitat de eliminar
+                eliminar.addActionListener(a->{
+                    for(int i = alumnes.size() - 1; i>=0;i--){
+                        if (checkboxes[i].isSelected()){
+                            //System.out.println("Selected "+i);
+                            gestor.removeAlumnes(i);
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null,"S'han eliminat els alumnes seleccioants!",
+                            "Modificar",JOptionPane.PLAIN_MESSAGE);
+                    tornar();
+                });
+                break;
+            case "grups":
+                ArrayList<Grup> grups = gestor.getGrups();
+                for (Grup grup : grups) {
+                    //print.append(grup.toString());
+                }
+                break;
+        }
+
+
+
+
+
+
+        //-----------------------------------------------------------
+        bPanel.setLayout(null);
+        bPanel.add(scroll);
+        this.add (bPanel);
+        this.add(tPanel);//Afegim el panel a la finestra
+        this.getContentPane().repaint();
+        validate();
+
+    }
+
+    //Metode per a poder modificar profes, alumnes i propostes
+    public void modForm(String Titol, String modificat){
+        clearFrame();
+        //element combobox, per aseleccionar que volem modificar
+        JComboBox cb = new JComboBox(gestor.getAllprofessornoms());
+        //Organitzem el panell del titol
+        titol.setText(Titol);
+        titol.setHorizontalTextPosition(JLabel.CENTER);//Setejar posicio del text seguit de posicio del label
+        titol.setVerticalTextPosition(JLabel.TOP);
+        titol.setHorizontalAlignment(JLabel.CENTER);
+        titol.setVerticalAlignment(JLabel.TOP);
+        titol.setBounds(100,0,360,100);
+        f = f.deriveFont(Font.BOLD, 24);
+        titol.setFont(f); //Setejem la font
+        titol.setIcon(null);
+        tPanel.add(titol);
+        //----------------------------------------------------------
+        //Organitzem el cos del formulari
+         bPanel.setBackground(Color.red);
+         bPanel.setBounds(0,100,200,500);
+        bPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        //Creem el panell que contindrà els elements
+       // JPanel content = new JPanel();
+
+        //Area botons
+        JButton tornar = new JButton();
+        tornar.setText("Tornar");
+
+        tornar.setBounds(280,220,100,25);
+        tornar.addActionListener(a->{tornar();});
+
+        JButton modificar = new JButton();
+        modificar.setText("Modificar");
+        modificar.setBounds(180,220,100,25);
+
+        switch (modificat) {
+            case "profes":
+                cb = new JComboBox(gestor.getAllprofessornoms());
+                bPanel.add(cb);
+                cb.setBounds(22,22,200,200);
+
+                //Afegir en un bucle
+                modificar.addActionListener(a->{
+
+
+                    tornar();
+                });
+                break;
+            case "alumnes":
+             cb = new JComboBox(gestor.getAllalumnesnoms());
+
+                //Setejem la funcionalitat de eliminar
+               modificar.addActionListener(a->{
+
+                    tornar();
+                });
+                break;
+            case "grups":
+                ArrayList<Grup> grups = gestor.getGrups();
+                for (Grup grup : grups) {
+                    //print.append(grup.toString());
+                }
+                break;
+        }
+
+
+
+
+
+
+        //-----------------------------------------------------------
+
+        bPanel.add(tornar,BorderLayout.SOUTH);
+        bPanel.add(modificar,BorderLayout.SOUTH);
+        this.add (bPanel);
+        this.add(tPanel);//Afegim el panel a la finestra
+        this.getContentPane().repaint();
+        validate();
+
+    }
+    //Metodo aixi de gratis per a llimpiar la pantalla
+    public void clearFrame(){
+        tPanel.removeAll();
+        bPanel.removeAll();
+    }
+
+    public void resetTBpanels (){
+        tPanel.setBounds(0,30,600,280);
+        bPanel.setBounds(50,320,500,160);
+    }
+    public void tornar(){
+        clearFrame();
+        resetTBpanels();
+        MenuPrincipal();
+    }
+
+/*
+
+
+;        JFrame frame = new JFrame();
+        JPanel panel = new JPanel();
+        for (int i = 0; i < 3; i++) {
+            panel.add(new JButton("Hello-" + i));
+        }
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollPane.setBounds(50, 30, 300, 50);
+
+        contentPane.setPreferredSize(new Dimension(500, 400));
+        contentPane.add(scrollPane);
+        frame.setContentPane(contentPane);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+
+
+    
+    private final String[] MENUIDENTIFICARPROPUESTAS =
+            {
+                    "Nom de Proposta",
+                    "Atrás"
+            };
+    
+    private final String[] MENUMODELIMINARPROPUESTAS =
+            {
+                    "Modificar Propuesta",
+                    "Eliminar Propuesta",
+                    "Atrás"
+            };
+
+    
+    private final String[] MENUMODIFICARELIMINAR =
+            {
+                    "Modificar profesor",
+                    "Eliminar profesor",
+                    "Atrás"
+            };
+
+    private final String[] MENUMODELIMINARALUMNOS =
+            {
+                    "Modificar alumno",
+                    "Eliminar alumno",
+                    "Atrás"
+            };
+
+    private final String[] MENUFILTRADO =
+            {
+                    "Busqueda por nombre",
+                    "Busqueda por apellido",
+                    "Busqueda por instituto",
+                    "Atrás"
+            };
+
+    private final String[] MENUFILTRADODOS =
+            {
+                    "Busqueda por nombre",
+                    "Busqueda por apellido",
+                    "Busqueda por instituto",
+                    "Busqueda por todos los campos",
+                    "Atrás"
+            };
+
+    private final String[] MENUCONFIRMACION =
+            {
+                    "Aceptar",
+                    "Cancelar"
+            };
+
+
+
+    
+    private final String[] MENUMODELIMINARGRUPOS =
+            {
+                    "Modificar grupo",
+                    "Eliminar grupo",
+                    "Atrás"
+            };
+
+  */
+}
+
